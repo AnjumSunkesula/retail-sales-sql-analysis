@@ -2,6 +2,44 @@
 
 SQL project analyzing a retail sales dataset — schema design, data cleaning, and business-question queries using MySQL.
 
+## Schema / Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    CUSTOMERS ||--o{ ORDERS : places
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : "ordered in"
+
+    CUSTOMERS {
+        int customer_id PK
+        string customer_name
+        string gender
+        int age
+        string city
+    }
+    PRODUCTS {
+        int product_id PK
+        string product_name
+        string category
+        decimal unit_price
+        decimal unit_cost
+        int stock_on_hand
+        int reorder_level
+    }
+    ORDERS {
+        int order_id PK
+        int customer_id FK
+        date order_date
+        time order_time
+    }
+    ORDER_ITEMS {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+```
+
 ## What this project covers
 - **Schema design**: A single `retail_sales` table capturing transactions, customers, categories, and pricing.
 - **Data cleaning**: Identifying and removing incomplete rows, validating calculated fields.
